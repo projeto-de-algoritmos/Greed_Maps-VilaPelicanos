@@ -9,7 +9,8 @@ public class PushedItems : MonoBehaviour
     public int count;
     public Sprite sprite;
 
-    public TextMeshProUGUI value;
+    public TextMeshProUGUI value1;
+    public TextMeshProUGUI value2;
     public Image image;
 
     public CanvasGroup canvas;
@@ -19,7 +20,8 @@ public class PushedItems : MonoBehaviour
         this.count = count;
         this.sprite = sprite;
 
-        value.text = count.ToString();
+        value1.text = count.ToString();
+        value2.text = count.ToString();
         image.sprite = sprite;
 
         canvas.alpha = 1;
