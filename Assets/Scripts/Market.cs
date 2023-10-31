@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEditor.Search;
+using System;
+using System.Diagnostics;
 
 public class Market : MonoBehaviour
 {
@@ -31,13 +34,14 @@ public class Market : MonoBehaviour
     {
         ResetItens();
 
-        Queue queue = new();
+        Queue<ItemsMarket> queue = new();
 
         for (int i = marketList.Count - 1; i >= 0; i--)
         {
             ItemsMarket item = marketList[i];
             if (item.isActive)
             {
+                print(item.price);
                 queue.Enqueue(item);
             }
         }
@@ -62,17 +66,25 @@ public class Market : MonoBehaviour
         moneyText.text = money.ToString();
     }
 
-    public void Coins(Queue queue)
+    public void Coins(Queue<ItemsMarket> items)
     {
-        foreach (ItemsMarket item in queue)
+        while (money != 0)
         {
-            int response = AddPushedItem(item, money);
 
-            if (response == -1)
+            ItemsMarket item = items.Dequeue();
+            int i;
+
+            for (i = 0; item.price <= money; money -= item.price, i++) ;
+
+            int response = AddPushedItem(item, i);
+
+            if (response == -1 || (items.Count == 0 && money != 0))
             {
-                ResetItens();
                 responsePierre.text = errorText;
-                break;
+                currentPushedItems = 0;
+
+                LoadCoins();
+                return;
             }
         }
 
@@ -85,7 +97,7 @@ public class Market : MonoBehaviour
     public int AddPushedItem(ItemsMarket item, long value)
     {
         if (value == 0)
-            return -1;
+            return 0;
 
         if (currentPushedItems == pushedItems.Count)        
             return -1;
@@ -94,15 +106,15 @@ public class Market : MonoBehaviour
         PushedItems pushedItem = pushedItems[currentPushedItems];
 
         while (value > 99)
-        {
+        {            
             pushedItem.SetItem(99, item.spite);
             value -= 99;
-            currentPushedItems++;
-            pushedItem = pushedItems[currentPushedItems];
 
             if (currentPushedItems == pushedItems.Count - 1)
                 return -1;
-            
+
+            currentPushedItems++;
+            pushedItem = pushedItems[currentPushedItems];                  
         }
 
         pushedItem.SetItem((int)value, item.spite);
