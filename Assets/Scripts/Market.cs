@@ -1,15 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Market : MonoBehaviour
 {
     public List<ItemsMarket> marketList = new();
     public List<PushedItems> pushedItems = new();
 
+    public TMP_InputField moneyText;
     public long money;
 
     private int currentPushedItems = 0;
+
+    public TextMeshProUGUI responsePierre;
+
+    [TextArea]
+    public string startText;
+    [TextArea]
+    public string errorText;
+    [TextArea]
+    public string successText;
+
+    private void OnEnable()
+    {
+        responsePierre.text = startText;
+    }
 
     public void Purchase()
     {
@@ -25,6 +41,10 @@ public class Market : MonoBehaviour
                 queue.Enqueue(item);
             }
         }
+        if (moneyText.text.Length > 0)
+            money = long.Parse(moneyText.text);
+        else
+            money = 0;
 
         Coins(queue);
     }
@@ -37,26 +57,39 @@ public class Market : MonoBehaviour
         }
     }
 
+    public void LoadCoins()
+    {
+        moneyText.text = money.ToString();
+    }
+
     public void Coins(Queue queue)
     {
         foreach (ItemsMarket item in queue)
         {
-            AddPushedItem(item, 115);
+            int response = AddPushedItem(item, money);
+
+            if (response == -1)
+            {
+                ResetItens();
+                responsePierre.text = errorText;
+                break;
+            }
         }
 
+        responsePierre.text = successText;
         currentPushedItems = 0;
+
+        LoadCoins();
     }
 
-    public void AddPushedItem(ItemsMarket item, int value)
+    public int AddPushedItem(ItemsMarket item, long value)
     {
         if (value == 0)
-            return;
+            return -1;
 
-        if (currentPushedItems == pushedItems.Count)
-        {
-            Debug.Log("AAAAAAAAAAAAAA");
-            return;
-        }
+        if (currentPushedItems == pushedItems.Count)        
+            return -1;
+        
 
         PushedItems pushedItem = pushedItems[currentPushedItems];
 
@@ -68,13 +101,13 @@ public class Market : MonoBehaviour
             pushedItem = pushedItems[currentPushedItems];
 
             if (currentPushedItems == pushedItems.Count - 1)
-            {
-                pushedItem.SetItem(value, item.spite);
-                return;
-            }
+                return -1;
+            
         }
 
-        pushedItem.SetItem(value, item.spite);
+        pushedItem.SetItem((int)value, item.spite);
         currentPushedItems++;
+
+        return 0;
     }
 }

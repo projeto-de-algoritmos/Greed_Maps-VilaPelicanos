@@ -52,6 +52,15 @@ public class Characters : MonoBehaviour
 
         manager.finishChars--;
         game.isMoving--;
+
+        if (manager.pierreShop.isOpen)
+        {
+            while (manager.pierreShop.isOpen)
+                yield return null;
+
+            yield return new WaitForSeconds(2);
+        }
+
         gameObject.transform.localPosition = nodes[0].transform.localPosition;
     }
 
