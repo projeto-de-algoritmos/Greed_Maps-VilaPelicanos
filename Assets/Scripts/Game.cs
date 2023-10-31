@@ -71,7 +71,7 @@ public class Game : MonoBehaviour
 
     public void CreateTarget(Node node, int numChar)
     {
-        GameObject targetInstance = Instantiate(prefabChar, parentChar);
+        GameObject targetInstance = Instantiate(prefabChar, parentTarget);
         targetInstance.transform.localPosition = new Vector2(
             node.gameObject.transform.localPosition.x,
             node.gameObject.transform.localPosition.y + targetInstance.GetComponent<RectTransform>().sizeDelta.y / 2
