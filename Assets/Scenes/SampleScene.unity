@@ -42325,14 +42325,10 @@ MonoBehaviour:
   charac: {fileID: 0}
   originPos: {x: 0, y: 0}
   originParent: {fileID: 0}
-  nodes: {fileID: 0}
-  edges: {fileID: 0}
-  distance: {fileID: 0}
+  nodes: {fileID: 1959828992}
+  edges: {fileID: 2032646926}
+  distance: {fileID: 1598151619}
   target: {fileID: 0}
-  responsePierre: {fileID: 0}
-  startText: 
-  errorText: 
-  successText: 
 --- !u!1 &1787522326
 GameObject:
   m_ObjectHideFlags: 0
