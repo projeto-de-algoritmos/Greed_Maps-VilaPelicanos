@@ -49,10 +49,10 @@ public class PierreShop : MonoBehaviour
 
     private void ZoomInShop()
     {
-        nodes.LeanAlpha(0, timeZoom / 2);
-        edges.LeanAlpha(0, timeZoom / 2);
-        distance.LeanAlpha(0, timeZoom / 2);
-        target.LeanAlpha(0, timeZoom / 2);
+        nodes.LeanAlpha(0, .2f);
+        edges.LeanAlpha(0, .2f);
+        distance.LeanAlpha(0, .2f);
+        target.LeanAlpha(0, .2f);
 
         villaPelicanos.LeanMoveLocal(posShop, timeZoom).setEaseInOutQuad();
         villaPelicanos.LeanScale(zoomShop, timeZoom).setEaseInOutQuad();

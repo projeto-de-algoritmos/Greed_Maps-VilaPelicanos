@@ -14,7 +14,7 @@ public class DistanceChars : MonoBehaviour
         Vector3 posChar01;
         Vector3 posChar02;
 
-        if (game.charObj02 != null && game.charObj02.gameObject != null)
+        if (game.charObj01.gameObject != null && game.charObj02.gameObject != null)
         {
             posChar01 = game.charObj01.transform.localPosition;
             posChar02 = game.charObj02.transform.localPosition;
