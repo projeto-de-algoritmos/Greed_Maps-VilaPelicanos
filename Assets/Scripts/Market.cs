@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEditor.Search;
-using System;
-using System.Diagnostics;
 
 public class Market : MonoBehaviour
 {
